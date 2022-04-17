@@ -29,7 +29,7 @@ layout_main.addLayout(layoutH2)
 layout_main.addLayout(layoutH3)
 
 main_win.setLayout(layout_main)
-
+print('Hello world')
 
 main_win.show()         # вывести главное окно
 app.exec_()             # оставить окно пока нет взаимодействии 
