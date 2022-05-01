@@ -1,35 +1,40 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QApplication,QWidget,
     QPushButton,QVBoxLayout,QHBoxLayout,QLabel, QMessageBox, QRadioButton)
+from intr import *
+from second_app import TestWin
+
+class MainWin(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.set_appear()
+        self.initUI()
+        self.connects()
+        self.show()
+
+    def set_appear(self):
+        self.setWindowTitle(txt_title)
+        self.resize(win_width, win_height)
+        self.move(win_x,win_y)
+
+    def initUI(self):
+        self.hello=QLabel(txt_hello)
+        self.description=QLabel(txt_desc)
+        self.button=QPushButton(txt_button)
+        self.layout=QVBoxLayout()
+        self.layout.addWidget(self.hello)
+        self.layout.addWidget(self.description)
+        self.layout.addWidget(self.button)
+        self.setLayout(self.layout)
+
+    def connects(self):
+        self.button.clicked.connect(self.next_click)
+
+    def next_click(self):
+        self.hide()
+        self.tw=TestWin()
 
 
-app = QApplication([]) #создать само приложение
-main_win=QWidget()    # создать главное окно
-main_win.setWindowTitle('Вопросы')
-
-question=QLabel('В каком году родился Никита?')
-btn_answer1=QRadioButton('2000')
-btn_answer2=QRadioButton('2022')
-btn_answer3=QRadioButton('2005')
-btn_answer4=QRadioButton('2010')
-
-layoutH1=QHBoxLayout()
-layoutH2=QHBoxLayout()
-layoutH3=QHBoxLayout()
-
-layoutH1.addWidget(question,alignment=Qt.AlignCenter)
-layoutH2.addWidget(btn_answer1,alignment=Qt.AlignCenter)
-layoutH2.addWidget(btn_answer2, alignment=Qt.AlignCenter)
-layoutH3.addWidget(btn_answer3, alignment=Qt.AlignCenter)
-layoutH3.addWidget(btn_answer4, alignment=Qt.AlignCenter)
-
-layout_main=QVBoxLayout()
-layout_main.addLayout(layoutH1)
-layout_main.addLayout(layoutH2)
-layout_main.addLayout(layoutH3)
-
-main_win.setLayout(layout_main)
-print('Пока пока')
-
-main_win.show()         # вывести главное окно
-app.exec_()             # оставить окно пока нет взаимодействии 
+app=QApplication([])
+main_menu=MainWin()
+app.exec()
